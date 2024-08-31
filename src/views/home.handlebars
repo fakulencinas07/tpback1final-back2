@@ -1,0 +1,21 @@
+<!-- views/home.handlebars -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Tienda de Ropa</title>
+</head>
+<body>
+    <h1>Bienvenido a la Tienda de Ropa</h1>
+    
+    {{#if user}}
+        <p>Bienvenido, {{user.first_name}} {{user.last_name}}!</p>
+        <a href="/api/sessions/logout">Cerrar sesión</a>
+    {{else}}
+        <a href="/login">Iniciar sesión</a>
+        <a href="/register">Registrarse</a>
+    {{/if}}
+
+</body>
+</html>
