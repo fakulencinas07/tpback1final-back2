@@ -1,0 +1,20 @@
+{{!-- checkout.handlebars --}}
+<h1>Finalizar Compra</h1>
+
+{{#if cart.products.length}}
+    <ul>
+        {{#each cart.products}}
+            <li>
+                Producto: {{this.product.name}}<br>
+                Cantidad: {{this.quantity}}<br>
+                Precio: ${{this.product.price}}<br>
+            </li>
+        {{/each}}
+    </ul>
+
+    <form action="/api/carts/{{user._id}}/purchase" method="POST">
+        <button type="submit">Confirmar Compra</button>
+    </form>
+{{else}}
+    <p>No hay productos en tu carrito. Agrega productos para continuar con la compra.</p>
+{{/if}}

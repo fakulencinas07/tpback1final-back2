@@ -1,9 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la Aplicación</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Agrega tu archivo CSS -->
 </head>
 <body>
-    {{{body}}}
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/register">Registrarse</a></li>
+                <li><a href="/login">Iniciar Sesión</a></li>
+                <li><a href="/cart/{{user._id}}">Carrito</a></li> <!-- Enlace al carrito -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {{{body}}} <!-- Aquí se renderizará el contenido de las otras vistas -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Tu Aplicación</p>
+    </footer>
 </body>
 </html>

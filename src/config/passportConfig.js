@@ -5,11 +5,12 @@ import bcrypt from 'bcrypt';
 
 // Configuración de la estrategia local
 passport.use(new LocalStrategy(
-    async (username, password, done) => {
+    { usernameField: 'email' }, // Asegúrate de que el campo esperado sea 'email'
+    async (email, password, done) => {
         try {
-            const user = await User.findOne({ email: username });
+            const user = await User.findOne({ email });
             if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
+                return done(null, false, { message: 'Incorrect email.' });
             }
 
             const match = await bcrypt.compare(password, user.password);

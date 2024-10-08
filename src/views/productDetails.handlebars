@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
-    <header>
-        <h1>Product Details</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/carts/{{cartId}}">My Cart</a>
-        </nav>
-    </header>
+{{!-- productDetails.handlebars --}}
+<h1>{{product.name}}</h1>
+<p>Precio: ${{product.price}}</p>
+<p>{{product.description}}</p>
 
-    <main>
-        <div class="product-details">
-            <h1>{{product.name}}</h1>
-            <p>Price: ${{product.price}}</p>
-            <p>Category: {{product.category}}</p>
-            <p>Available: {{#if product.available}}Yes{{else}}No{{/if}}</p>
-            <p>Description: {{product.description}}</p>
-
-            <form method="post" action="/carts/{{cartId}}/products/{{product._id}}">
-                <button type="submit">Add to Cart</button>
-            </form>
-        </div>
-    </main>
-</body>
-</html>
+<form action="/api/carts/{{user._id}}/products" method="POST">
+    <input type="hidden" name="productId" value="{{product._id}}">
+    <input type="number" name="quantity" min="1" placeholder="Cantidad">
+    <button type="submit">Agregar al Carrito</button>
+</form>

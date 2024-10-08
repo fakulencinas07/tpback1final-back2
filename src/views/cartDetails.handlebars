@@ -1,46 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart Details</title>
-    <link rel="stylesheet" href="/styles.css"> <!-- Agrega tu archivo CSS aquí -->
-</head>
-<body>
-    <header>
-        <h1>Cart Details</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/carts/{{cartId}}">My Cart</a>
-        </nav>
-    </header>
+{{!-- cartDetails.handlebars --}}
+<h1>Detalles de tu Carrito</h1>
 
-    <main>
-        <div class="cart-details">
-            {{#if products.length}}
-                <ul>
-                    {{#each products}}
-                    <li>
-                        <h2>{{this.name}}</h2>
-                        <p>Price: ${{this.price}}</p>
-                        <p>Quantity: {{this.quantity}}</p>
-                        <form method="post" action="/carts/{{cartId}}/products/{{this._id}}/quantity">
-                            <input type="number" name="quantity" min="1" value="{{this.quantity}}">
-                            <button type="submit">Update Quantity</button>
-                        </form>
-                        <form method="post" action="/carts/{{cartId}}/products/{{this._id}}/remove">
-                            <button type="submit">Remove from Cart</button>
-                        </form>
-                    </li>
-                    {{/each}}
-                </ul>
-                <form method="post" action="/carts/{{cartId}}/clear">
-                    <button type="submit">Clear Cart</button>
+{{#if cart.products.length}}
+    <ul>
+        {{#each cart.products}}
+            <li>
+                Producto: {{this.product.name}}<br>
+                Cantidad: {{this.quantity}}<br>
+                Precio: ${{this.product.price}}<br>
+                <form action="/api/carts/{{@../user._id}}/products" method="POST" style="display:inline;">
+                    <input type="hidden" name="productId" value="{{this.product._id}}">
+                    <input type="number" name="quantity" min="1" placeholder="Cantidad">
+                    <button type="submit">Agregar Más</button>
                 </form>
-            {{else}}
-                <p>Your cart is empty.</p>
-            {{/if}}
-        </div>
-    </main>
-</body>
-</html>
+                <form action="/api/carts/{{@../user._id}}/products" method="DELETE" style="display:inline;">
+                    <input type="hidden" name="productId" value="{{this.product._id}}">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </li>
+        {{/each}}
+    </ul>
+    <form action="/api/carts/{{user._id}}/purchase" method="POST">
+        <button type="submit">Finalizar Compra</button>
+    </form>
+{{else}}
+    <p>No hay productos en tu carrito.</p>
+{{/if}}
